@@ -1,33 +1,29 @@
 pipeline
 {
+  agent any
 
-agent {
-  label 'DevServer'
-}
+  stages{
 
-tools {
-  maven 'mymaven'
-}
-
-stages{
-
-    stage('build')
+    stage('Build')
     {
-        steps {
-            sh 'mvn clean package'
-        }
-
-        post {
-        success {
-            archiveArtifacts artifacts: '**/target/*.war'
-                 }
-            }
-
+      steps
+      {
+        echo "This is building"
+      }
     }
-
-   
-
-    
-}
-
+    stage('Test')
+    {
+      steps
+      {
+        echo "This is testing"
+      }
+    }
+    stage('Deploy')
+    {
+      steps
+      {
+        echo "This is deploying"
+      }
+    }        
+  }
 }
