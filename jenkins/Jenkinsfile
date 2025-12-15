@@ -9,21 +9,23 @@ pipeline
       steps
       {
         echo "This is building"
+        sh '''
+        mvn validate
+        mvn compile
+        mvn package
+        '''
       }
-    }
-    stage('Test')
-    {
-      steps
+
+      post
       {
-        echo "This is testing"
+        success{
+         echo "Build stage success" 
+         archiveArtifacts artifacts: '**/target/*war' 
+        }
+        failure { echo "Build failed" }
       }
+
     }
-    stage('Deploy')
-    {
-      steps
-      {
-        echo "This is deploying"
-      }
-    }        
+    
   }
 }
